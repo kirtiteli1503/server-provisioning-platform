@@ -1,0 +1,40 @@
+---
+- name: Create app directory
+  ansible.builtin.file:
+    path: "{{ app_dir }}"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0755"
+
+- name: Copy application source
+  ansible.builtin.copy:
+    src: src/
+    dest: "{{ app_dir }}/src/"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0644"
+  register: app_source
+
+- name: Render docker-compose.yml
+  ansible.builtin.template:
+    src: docker-compose.yml.j2
+    dest: "{{ app_dir }}/docker-compose.yml"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0644"
+  register: app_compose
+
+- name: Deploy the stack
+  community.docker.docker_compose_v2:
+    project_src: "{{ app_dir }}"
+    build: "{{ 'always' if (app_source.changed or app_compose.changed) else 'never' }}"
+    state: present
+
+- name: Allow the app port only from the proxy
+  community.general.ufw:
+    rule: allow
+    port: "{{ app_port }}"
+    proto: tcp
+    src: "{{ app_allowed_proxy_cidr }}"
+    comment: "App port (from nginx)"

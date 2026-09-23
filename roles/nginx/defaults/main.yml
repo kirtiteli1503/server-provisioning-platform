@@ -1,0 +1,4 @@
+---
+nginx_upstream_host: 127.0.0.1   # site.yml overrides this to the app node's IP
+nginx_upstream_port: "{{ app_port | default(5000) }}"
+nginx_server_name: _   # catch-all; set a real domain when you have one

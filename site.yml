@@ -1,8 +1,29 @@
 ---
-# Entry point. Roles are added phase by phase (docker, app, nginx, monitoring).
+# Entry point. Roles are added phase by phase (docker/app/nginx done, monitoring next).
 - name: Baseline configuration for every node
   hosts: all
   become: true
   roles:
     - role: common
       tags: [common]
+
+- name: Deploy the Flask + Redis stack
+  hosts: app
+  become: true
+  vars:
+    # Only the web (nginx) node may reach the app port directly.
+    app_allowed_proxy_cidr: "{{ hostvars[groups['web'][0]]['ansible_host'] }}/32"
+  roles:
+    - role: docker
+      tags: [docker]
+    - role: app
+      tags: [app]
+
+- name: Configure the reverse proxy
+  hosts: web
+  become: true
+  vars:
+    nginx_upstream_host: "{{ hostvars[groups['app'][0]]['ansible_host'] }}"
+  roles:
+    - role: nginx
+      tags: [nginx]

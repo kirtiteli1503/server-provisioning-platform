@@ -1,0 +1,12 @@
+---
+galaxy_info:
+  author: Kriti
+  description: Nginx reverse proxy in front of the app container, with a UFW rule for HTTP
+  license: MIT
+  min_ansible_version: "2.15"
+  platforms:
+    - name: Ubuntu
+      versions: [noble]
+  galaxy_tags: [nginx, proxy]
+dependencies:
+  - role: common

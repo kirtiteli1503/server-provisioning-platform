@@ -1,0 +1,12 @@
+---
+galaxy_info:
+  author: Kriti
+  description: Install Docker Engine and the Compose plugin from the official Docker apt repo
+  license: MIT
+  min_ansible_version: "2.15"
+  platforms:
+    - name: Ubuntu
+      versions: [noble]
+  galaxy_tags: [docker]
+dependencies:
+  - role: common

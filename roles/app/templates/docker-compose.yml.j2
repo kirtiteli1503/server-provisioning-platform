@@ -1,0 +1,28 @@
+# {{ ansible_managed }}
+services:
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+    networks:
+      - app-net
+
+  web:
+    build: ./src
+    image: {{ app_image_tag }}
+    restart: unless-stopped
+    environment:
+      REDIS_HOST: redis
+    ports:
+      - "{{ app_port }}:5000"   # reachable from other hosts; locked down by the UFW rule below
+    depends_on:
+      - redis
+    networks:
+      - app-net
+
+networks:
+  app-net: {}
+
+volumes:
+  redis-data: {}

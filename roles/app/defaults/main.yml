@@ -1,0 +1,8 @@
+---
+app_dir: /opt/app
+app_port: 5000        # host port the Flask container is published on (nginx proxies to this)
+app_image_tag: spp-flask-app:latest
+
+# Who is allowed to reach app_port. site.yml overrides this to the web
+# node's /32 address so the app port isn't open to the world.
+app_allowed_proxy_cidr: 0.0.0.0/0
