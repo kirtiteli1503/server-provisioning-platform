@@ -1,0 +1,23 @@
+---
+# Desired fleet. `scripts/provision.py up` creates any node that is missing.
+prefix: spp # VM names become <prefix>-<node>, e.g. spp-web
+image: "24.04" # Ubuntu release passed to `multipass launch`
+ssh_user: ubuntu # default Multipass user
+key_path: .keys/id_ed25519 # generated on first run, gitignored
+
+nodes:
+  web:
+    role: web
+    cpus: 1
+    memory: 1G
+    disk: 8G
+  app:
+    role: app
+    cpus: 1
+    memory: 1G
+    disk: 8G
+  monitor:
+    role: monitor
+    cpus: 2
+    memory: 2G
+    disk: 10G

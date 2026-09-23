@@ -1,0 +1,7 @@
+.venv/
+.keys/
+inventory/hosts.ini
+__pycache__/
+.pytest_cache/
+.ansible/
+*.retry

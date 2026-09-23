@@ -1,0 +1,34 @@
+---
+common_packages:
+  - curl
+  - fail2ban
+  - git
+  - htop
+  - ufw
+  - unattended-upgrades
+  - unzip
+  - vim
+
+common_timezone: UTC
+
+# SSH
+common_ssh_max_auth_tries: 3
+
+# Firewall: SSH is always allowed so enabling UFW can never lock you out.
+# Other roles/groups add ports through common_ufw_extra_rules, e.g.
+#   - port: "80"
+#     proto: tcp
+#     comment: HTTP
+common_ufw_rules:
+  - port: "22"
+    proto: tcp
+    comment: SSH
+common_ufw_extra_rules: []
+
+# fail2ban
+common_fail2ban_bantime: 1h
+common_fail2ban_findtime: 10m
+common_fail2ban_maxretry: 5
+
+# Automatic security updates
+common_unattended_upgrades_enabled: true

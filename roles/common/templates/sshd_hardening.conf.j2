@@ -1,0 +1,9 @@
+# {{ ansible_managed }}
+PermitRootLogin no
+PasswordAuthentication no
+KbdInteractiveAuthentication no
+PubkeyAuthentication yes
+X11Forwarding no
+MaxAuthTries {{ common_ssh_max_auth_tries }}
+ClientAliveInterval 300
+ClientAliveCountMax 2

@@ -1,0 +1,3 @@
+---
+# Fleet-wide overrides. Every option and its default lives in roles/<role>/defaults/main.yml.
+common_timezone: UTC

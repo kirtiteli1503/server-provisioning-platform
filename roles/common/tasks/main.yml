@@ -1,0 +1,20 @@
+---
+- name: Install packages and set timezone
+  ansible.builtin.import_tasks: packages.yml
+  tags: [packages]
+
+- name: Harden SSH
+  ansible.builtin.import_tasks: ssh.yml
+  tags: [ssh]
+
+- name: Configure firewall
+  ansible.builtin.import_tasks: firewall.yml
+  tags: [firewall]
+
+- name: Configure fail2ban
+  ansible.builtin.import_tasks: fail2ban.yml
+  tags: [fail2ban]
+
+- name: Configure automatic updates
+  ansible.builtin.import_tasks: updates.yml
+  tags: [updates]

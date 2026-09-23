@@ -1,0 +1,8 @@
+---
+# Entry point. Roles are added phase by phase (docker, app, nginx, monitoring).
+- name: Baseline configuration for every node
+  hosts: all
+  become: true
+  roles:
+    - role: common
+      tags: [common]

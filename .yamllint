@@ -1,0 +1,22 @@
+---
+extends: default
+ignore: |
+  .venv/
+  .git/
+rules:
+  # Settings below match what ansible-lint expects.
+  braces:
+    max-spaces-inside: 1
+  comments-indentation: false
+  octal-values:
+    forbid-implicit-octal: true
+    forbid-explicit-octal: true
+  # Project preferences.
+  line-length:
+    max: 140
+    level: warning
+  truthy:
+    allowed-values: ["true", "false", "on"]
+    check-keys: false
+  comments:
+    min-spaces-from-content: 1
